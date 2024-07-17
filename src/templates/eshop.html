@@ -22,6 +22,7 @@
         <div class="eshop1">
             <!-- Vous pouvez ajouter une image de catégorie si vous avez un champ image dans le modèle Category -->
             <div class="text-eshop">
+                <img src="{{ category.image.url }}" alt="{{ category.name }}">
                 <h2 class="title-eshop">{{ category.name }}</h2>
                 <p>{{ category.description }}</p>
                 <a href="{% url 'product_list' %}?category={{ category.id }}" class="btn btn-sm btn-outline-secondary">Voir les produits</a>
