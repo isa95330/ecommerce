@@ -1,0 +1,250 @@
+{% load static %}
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 300px;
+            height: 300px;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+        }
+        .endtext {
+            margin-bottom: -10rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}"style="height: 45px" alt="Logo de la marque"/>
+            </div>
+            <ul>
+                <li><a href="{% url 'home' %}">Accueil</a></li>
+                <li><a href="{% url 'eshop' %}">Boutique</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+
+    </header>
+
+    <main>
+        <img src="{% static 'images/Marie4.jpg' %}" alt="Marie Image"/>
+
+        <section class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="text fixed">
+                    <h2>Coiffure artistique</h2>
+                    <p>Le monde du hairstyling en 2024 est captivant, l’expression individuelle atteint de nouveaux sommets.</p>
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/Zoe.jpg' %}" alt="Image de Zoe"/>
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/Robin.jpg' %}" alt="Image de Robin"/>
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/paola.jpg' %}" alt="Image de Paola"/>
+                </div>
+                <div class="swiper-slide">
+                    <img src="{% static 'images/Barbara.jpg' %}" alt="Image de Barbara"/>
+                    <button>click</button>
+                </div>
+                <div class="endtext">
+                    <h2>Coiffure artistique</h2>
+                    <p> Cette année offre à nouveau une diversité de choix revigorante. Plongeons ensemble dans les tendances capillaires les plus en vogue, qui feront sensation tout au long de l’année.</p>
+                </div>
+            </div>
+
+
+        </section>
+    </main>
+    <section class="slides">
+    <div class="box20">
+                <h4>Hairstylist</h4>
+        <img src="{% static 'images/marie1.jpg' %}" style= height:500px alt="photo de mode d'une mannequin vêtue de blanc">
+                <p>Véritable styliste du cheveux.</p>
+            </div>
+            <div class="box21">
+                <img src="{% static 'images/sophie3.jpg' %}" class="a">
+
+                                        <ul class="slideshow4">
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                </ul>
+            </div>
+        </div>
+
+
+</section>
+    <section class="prestation2">
+        <div class="grid2">
+            <div class="box7">
+                <h2>Sloane Peters</h2>
+                <img src="{% static 'images/profile.jpg' %}" alt="photo de profile de la coiffeuse">
+            </div>
+            <div class="box8">
+                <h2>«Être parisienne ce n’est pas être née à paris, c’est y renaître»</h2>
+                <h3>Une coiffeuse à la pointe de la tendance</h3>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae magnam facere suscipit mollitia minima laborum.</li>
+                <h3>Lorem, ipsum dolor.</h3>
+                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor, placeat?</li>
+            </div>
+            <div class="box9">
+                <h3>J'ai créée pour vos cheveux</h3>
+                <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus necessitatibus ullam consectetur praesentium cupiditate deleniti ipsam est rerum quam mollitia!</li>
+                <h3>Conseils d'experts</h3>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus soluta reiciendis quidem repudiandae, odio voluptatum.</li>
+                <img src="{% static 'images/produits2.jpg' %}" alt="produits de coiffure">
+            </div>
+            <div class="box10">
+                <img src="{% static 'images/produits.jpg' %}" alt="produits de coiffure">
+            </div>
+            <div class="presse">
+                <h2>« Publication »</h2>
+                <img src="{% static 'images/sophie1.jpg' %}" alt="photo de mode d'une mannequin vêtue de blanc">
+            </div>
+            <div class="box11">
+                <ul class="slideshow3">
+                    <li class="bitie"></li>
+                    <li class="bitie"></li>
+                    <li class="bitie"></li>
+                    <li class="bitie"></li>
+                    <li class="bitie"></li>
+                </ul>
+            </div>
+            <div class="box12">
+                <h4>Bitie Flow</h4>
+                <p>Pour cette collection d'accessoires et bijoux, j'ai réalisé des coiffures voluptueuses et glamours afin de mettre en valeur les créations de l'artiste.</p>
+                <h5>Pour O Magazine</h5>
+                <p>Une équipe formidable, des moments mémorables, merci O magazine de m'avoir fait confiance.</p>
+            </div>
+            <div class="box13">
+                <h4>Color Full</h4>
+                <p>Pour cette collection de vêtements riche en couleur, j'ai réalisé des coiffures graphiques et en adéquation avec un stylisme très particulier.</p>
+                <h5>Pour VOGUE</h5>
+                <p>La réputation n'est plus à refaire. Quel plaisir pour moi d'avoir pu coiffer sur un édito avec l'équipe du magazine.</p>
+            </div>
+            <div class="box14">
+                <ul class="slideshow">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="box15">
+                <h4>Monochromatic</h4>
+                <p>Un stylisme, des coiffures vertigineuses pour cet édito, un vrai plaisir à réaliser</p>
+                <h5>Pour Biblond</h5>
+                <p>Merveilleux mag de la mode, souvenirs mémorables, incroyables expériences avec vous. Merci à vous Biblond.</p>
+            </div>
+            <div class="box16">
+                <img src="{% static 'images/sophie3.jpg' %}" class="a">
+
+                                        <ul class="slideshow2">
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                    <li class="monocromatic"></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>&copy; 2024 VotreNomEntreprise. Tous droits réservés.</p>
+        <p>
+            <a href="#">Mentions légales</a> |
+            <a href="#">Politique de confidentialité</a> |
+            <a href="#">Conditions générales</a>
+        </p>
+        <p>
+            Adresse : [Votre adresse]<br>
+            Téléphone : [Votre numéro de téléphone]<br>
+            Email : [Votre adresse email]
+        </p>
+    </footer>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+        let swiper = new Swiper(".mySwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false
+            },
+            slidesPerView: "auto",
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true
+            },
+            pagination: {
+                el: ".swiper-pagination"
+            }
+        });
+
+        function toggleMenu() {
+            const navbar = document.querySelector('.navbar');
+            const burger = document.querySelector('.burger');
+
+            burger.addEventListener('click', (e) => {
+                navbar.classList.toggle('show-nav').style.marginBottom = "25px";
+            });
+            // bonus
+            const navbarLinks = document.querySelectorAll('.navbar a');
+            navbarLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    navbar.classList.toggle('show-nav');
+                });
+            });
+        }
+        toggleMenu();
+
+        // back to top button
+        let mybutton = document.getElementById("myBtn");
+
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

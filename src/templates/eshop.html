@@ -1,0 +1,33 @@
+{% load static %}
+
+{% block title %}Eshop{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<section class="slide-eshop">
+    <ul class="slideshow-eshop">
+        <li><span></span></li>
+        <li><span>2</span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+        <li><span></span></li>
+    </ul>
+</section>
+
+<section class="eshop">
+    <h2>Découvrez toutes nos catégories.</h2>
+
+    {% for category in categories %}
+    <article class="eshop-card">
+        <div class="eshop1">
+            <!-- Vous pouvez ajouter une image de catégorie si vous avez un champ image dans le modèle Category -->
+            <div class="text-eshop">
+                <h2 class="title-eshop">{{ category.name }}</h2>
+                <p>{{ category.description }}</p>
+                <a href="{% url 'product_list' %}?category={{ category.id }}" class="btn btn-sm btn-outline-secondary">Voir les produits</a>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

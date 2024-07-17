@@ -1,0 +1,24 @@
+{% load static %}
+{% block title %}
+    Liste des produits
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Liste des produits</h1>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                    <img src="{% static 'images/produits.jpg' %}" style= "height:500px" alt="Image de produits"/>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">Voir détails</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

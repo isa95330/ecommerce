@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app   # Montez le répertoire courant dans /app du conteneur
+    environment:
+      - DJANGO_SETTINGS_MODULE=ecommerce.settings  # Utilisation du fichier de configuration principal
+      - DEV_ENV=true  # Exemple de variable d'environnement pour l'environnement de développement
+    command: >
+      sh -c "python src/manage.py migrate && python src/manage.py runserver 0.0.0.0:8000"
