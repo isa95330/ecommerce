@@ -9,7 +9,7 @@
         <section class="product-detail">
             <div class="product-image">
                 <!-- Image du produit -->
-                    <img src="{% static 'images/uploads/prd4.jpg' %}" alt="Image de Zoe"/>
+                    <img src="{{ product.image.url }}" style= height:400px alt="{{ product.name }}">
 
             </div>
             <div class="product-info">
