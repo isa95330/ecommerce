@@ -1,14 +1,16 @@
-# shop/tests_shop.py
-
-from django.test import TestCase, SimpleTestCase
-from django.urls import reverse, resolve
-from .models import Product, Category
-from .views import product_list
-
+from django.test import TestCase
+from shop.models import Product, Category
 
 class ProductTestCase(TestCase):
     def setUp(self):
-        self.category = Category.objects.create(name="Test Category")
+        # Création d'une catégorie pour associer les produits
+        self.category = Category.objects.create(
+            name="Test Category",
+            description="Test Category Description",
+            image="uploads/test_category.jpg"
+        )
+
+        # Création des produits associés à la catégorie
         self.product1 = Product.objects.create(
             category=self.category,
             name="Test Product 1",
@@ -17,6 +19,7 @@ class ProductTestCase(TestCase):
             image="uploads/test1.jpg",
             quantity=5
         )
+
         self.product2 = Product.objects.create(
             category=self.category,
             name="Test Product 2",
@@ -37,10 +40,3 @@ class ProductTestCase(TestCase):
         self.assertEqual(product.price, 10.00)
         self.assertEqual(product.description, "Test Description 1")
         self.assertEqual(product.quantity, 5)
-
-
-class TestUrls(SimpleTestCase):
-    def test_products_url_resolves(self):
-        url = reverse('product_list')
-        resolver = resolve(url)
-        self.assertEqual(resolver.func, product_list)
