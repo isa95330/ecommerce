@@ -11,4 +11,4 @@ services:
       - DJANGO_SETTINGS_MODULE=ecommerce.settings  # Utilisation du fichier de configuration principal
       - DEV_ENV=true  # Exemple de variable d'environnement pour l'environnement de développement
     command: >
-      sh -c "python src/manage.py migrate && python src/manage.py runserver 0.0.0.0:8000"
+      sh -c "python src/manage.py migrate && python src/manage.py test shop.tests_shop"
