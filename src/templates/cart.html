@@ -1,0 +1,32 @@
+{% load static %}
+{% block title %}Panier{% endblock %}
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<main class="container">
+    <h1>Votre panier</h1>
+    {% if products %}
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in products %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.price }} €</td>
+                <td><a href="{% url 'cart_remove' item.product.id %}" class="btn btn-danger">Retirer</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Votre panier est vide.</p>
+    {% endif %}
+</main>
+{% endblock %}

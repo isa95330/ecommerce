@@ -1,4 +1,5 @@
 {% load static %}
+
 {% block title %}
     Détails de {{ product.name }}
 {% endblock %}
@@ -11,6 +12,7 @@
                 <!-- Image du produit -->
                     <img src="{{ product.image.url }}" style= height:400px alt="{{ product.name }}">
 
+
             </div>
             <div class="product-info">
                 <h1>{{ product.name }}</h1>
@@ -18,12 +20,15 @@
                 <p>{{ product.description }}</p>
                 <p>Catégorie : {{ product.category }}</p>
                 <p>Prix : {{ product.price }} €</p>
-                {% if product.stock > 0 %}
-                    <a href="{% url 'cart_add' products.id %}" class="btn btn-primary">Ajouter au panier</a>
+                {% if product.quantity > 0 %}
+                    <a href="{% url 'cart_add' product.id %}" class="btn btn-primary">Ajouter au panier</a>
                 {% else %}
                     <p class="text-danger">Temporairement en rupture de stock</p>
                 {% endif %}
             </div>
         </section>
     </main>
+    <footer>
+        <a href="{% url 'view_cart' %}" class="btn btn-secondary">Voir le panier</a>
+    </footer>
 {% endblock %}

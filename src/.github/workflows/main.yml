@@ -1,4 +1,4 @@
-name: CI
+name: Build and Test
 
 on:
   push:
@@ -13,14 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     services:
       docker:
-        image: docker:latest
+        image: docker:19.03.12
         options: --privileged
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Build Docker image
-        run: docker-compose build
+        run: docker-compose -f src/docker-compose.yml build
 
       - name: Run tests
+<<<<<<< HEAD
         run: docker-compose run web python manage.py test shop.tests_shop
+=======
+        run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
+>>>>>>> main
