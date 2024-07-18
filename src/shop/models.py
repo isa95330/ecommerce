@@ -5,6 +5,8 @@ class Category(models.Model):
     description = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to='shop', null=True, blank=True)
 
+    class Meta:
+        app_label = 'shop'
 
     def __str__(self):
         return self.name
