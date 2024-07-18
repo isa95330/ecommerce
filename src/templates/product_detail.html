@@ -21,7 +21,7 @@
                 <p>Catégorie : {{ product.category }}</p>
                 <p>Prix : {{ product.price }} €</p>
                 {% if product.quantity > 0 %}
-                    <a href="{% url 'cart_add' product.id %}" class="btn btn-primary">Ajouter au panier</a>
+<a href="{% url 'cart_add' product.id %}" class="btn btn-primary">Ajouter au panier</a>
                 {% else %}
                     <p class="text-danger">Temporairement en rupture de stock</p>
                 {% endif %}
