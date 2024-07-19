@@ -119,19 +119,16 @@ USE_I18N = True
 
 USE_TZ = True
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# settings.py
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, '/static'),  # Assurez-vous que ce chemin est correct
+    os.path.join(BASE_DIR, 'static')
 ]
-
-# En production, vous devez également définir STATIC_ROOT
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/images/'
 
