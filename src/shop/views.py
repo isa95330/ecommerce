@@ -1,7 +1,12 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpRequest
-from .models import Product, Category, CartItem
+from django.http import HttpRequest, HttpResponseRedirect
+from django.urls import reverse
+from django.views import View
+
+from .models import Product, Category, CartItem, Client
 
 
 def home_view(request):
@@ -61,3 +66,49 @@ def remove_from_cart(request, product_id):
         del cart[product_id]
     request.session['cart'] = cart
     return redirect('view_cart')
+
+def user_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # Redirige vers la page d'accueil après connexion
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})
+
+class LoginView(View):
+    def get(self, request):
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form': form})
+
+    def post(self, request):
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+        return render(request, 'login.html', {'form': form})
+
+class ClientListView(View):
+    def get(self, request):
+        clients = Client.objects.all()
+        return render(request, 'client_list.html', {'clients': clients})
+
+class SignupView(View):
+    def get(self, request):
+        form = UserCreationForm()
+        return render(request, 'signup.html', {'form': form})
+
+    def post(self, request):
+        form = UserCreationForm(data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            login(request, user)
+            return redirect('home')
+        return render(request, 'signup.html', {'form': form})

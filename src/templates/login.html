@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Connexion{% endblock %}
+{% block content %}
+<main>
+    <div class="auth-container">
+        <div class="auth-image">
+            <img src="{% static 'images/marie2.jpg' %}" alt="Image de connexion">
+        </div>
+        <div class="auth-form">
+            <h1>Connexion</h1>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Se connecter</button>
+            </form>
+            <p>Pas encore de compte? <a href="{% url 'signup' %}">Créez-en un ici</a>.</p>
+        </div>
+    </div>
+</main>
+{% endblock %}

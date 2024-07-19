@@ -1,5 +1,5 @@
 from django.test import TestCase
-from shop.models import Product, Category
+from models import Product, Category
 
 class ProductTestCase(TestCase):
     def setUp(self):
@@ -39,8 +39,4 @@ class ProductTestCase(TestCase):
         product = Product.objects.get(name="Test Product 1")
         self.assertEqual(product.price, 10.00)
         self.assertEqual(product.description, "Test Description 1")
-<<<<<<< HEAD
         self.assertEqual(product.quantity, 5)
-=======
-        self.assertEqual(product.quantity, 5)
->>>>>>> main

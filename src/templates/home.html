@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+
 {% load static %}
 {% block title %}Accueil{% endblock %}
 
@@ -6,6 +8,8 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
     <style>
         .swiper {
             width: 100%;
@@ -28,25 +32,19 @@
     </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <div class="logo">
-                <img src="{% static 'images/logo.jpg' %}"style="height: 45px" alt="Logo de la marque"/>
-            </div>
-            <ul>
-                <li><a href="{% url 'home' %}">Accueil</a></li>
-                <li><a href="{% url 'eshop' %}">Boutique</a></li>
-            </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-        </nav>
-
-    </header>
 
     <main>
+    <section class="intro" style="padding-bottom: 50px;">
+      <h1 class="title">
+        <span class="letter">H</span>
+        <span class="letter">E</span>
+        <span class="letter">L</span>
+        <span class="letter">L</span>
+        <span class="letter">O</span>
+      </h1>
+    </section>
+
+
         <img src="{% static 'images/Marie4.jpg' %}" alt="Marie Image"/>
 
         <section class="swiper mySwiper">
@@ -122,7 +120,6 @@
                 <img src="{% static 'images/produits.jpg' %}" alt="produits de coiffure">
             </div>
             <div class="presse">
-                <h2>« Publication »</h2>
                 <img src="{% static 'images/sophie1.jpg' %}" alt="photo de mode d'une mannequin vêtue de blanc">
             </div>
             <div class="box11">
@@ -177,19 +174,11 @@
             </div>
         </div>
     </section>
-    <footer class="footer">
-        <p>&copy; 2024 Sloane Peters. Tous droits réservés.</p>
-        <p>
-            <a href="#">Mentions légales</a> |
-            <a href="#">Politique de confidentialité</a> |
-            <a href="#">Conditions générales</a>
-        </p>
-        <p>
-            Adresse : 10 rue de la collection.<br>
-            Téléphone : 0125364225<br>
-            Email : sloane.peter@eshop.fr
-        </p>
-    </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollToPlugin.min.js"></script>
+
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>

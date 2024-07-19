@@ -2,13 +2,9 @@ version: '3'
 
 services:
   web:
-<<<<<<< HEAD
-    build: ..
-=======
     build:
       context: .
       dockerfile: Dockerfile
->>>>>>> main
     ports:
       - "8000:8000"
     volumes:

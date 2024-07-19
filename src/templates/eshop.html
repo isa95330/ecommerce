@@ -1,6 +1,10 @@
+{% extends "base.html" %}
+
 {% load static %}
 
+
 {% block title %}Eshop{% endblock %}
+
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -15,7 +19,6 @@
 </section>
 
 <section class="eshop">
-    <h2>Découvrez toutes nos catégories.</h2>
 
     {% for category in categories %}
     <article class="eshop-card">
@@ -25,23 +28,11 @@
                 <img src="{{ category.image.url }}" alt="{{ category.name }}">
                 <h2 class="title-eshop">{{ category.name }}</h2>
                 <p>{{ category.description }}</p>
-                <a href="{% url 'product_list' %}?category={{ category.id }}" class="btn btn-sm btn-outline-secondary">Voir les produits</a>
+                <a href="{% url 'product_list' %}?category={{ category.id }}" class="btn btn-custom">Voir les produits</a>
             </div>
         </div>
     </article>
     {% endfor %}
 </section>
-<footer class="footer">
-        <p>&copy; 2024 VotreNomEntreprise. Tous droits réservés.</p>
-        <p>
-            <a href="#">Mentions légales</a> |
-            <a href="#">Politique de confidentialité</a> |
-            <a href="#">Conditions générales</a>
-        </p>
-        <p>
-            Adresse : [Votre adresse]<br>
-            Téléphone : [Votre numéro de téléphone]<br>
-            Email : [Votre adresse email]
-        </p>
-    </footer>
+
 {% endblock %}

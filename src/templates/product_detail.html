@@ -6,9 +6,26 @@
 
 {% block body %}
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/logo.jpg' %}"style="height: 45px" alt="Logo de la marque"/>
+            </div>
+            <ul>
+                <li><a href="{% url 'home' %}">Accueil</a></li>
+                <li><a href="{% url 'eshop' %}">Boutique</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+
+    </header>
     <main class="container">
         <section class="product-detail">
-            <div class="product-image">
+            <div class="product-detail-image">
                 <!-- Image du produit -->
                     <img src="{{ product.image.url }}" style= height:400px alt="{{ product.name }}">
 
@@ -28,7 +45,17 @@
             </div>
         </section>
     </main>
-    <footer>
-        <a href="{% url 'view_cart' %}" class="btn btn-secondary">Voir le panier</a>
+    <footer class="footer">
+        <p>&copy; 2024 Sloane Peters. Tous droits réservés.</p>
+        <p>
+            <a href="#">Mentions légales</a> |
+            <a href="#">Politique de confidentialité</a> |
+            <a href="#">Conditions générales</a>
+        </p>
+        <p>
+            Adresse : 10 rue de la collection.<br>
+            Téléphone : 0125364225<br>
+            Email : sloane.peter@eshop.fr
+        </p>
     </footer>
 {% endblock %}
