@@ -1,5 +1,3 @@
-// scripts.js
-
 document.addEventListener("DOMContentLoaded", function() {
     const title = document.querySelector(".title");
     const letters = document.querySelectorAll(".letter");
@@ -9,18 +7,17 @@ document.addEventListener("DOMContentLoaded", function() {
     // GSAP Timeline
     const tl = gsap.timeline({
         onComplete: function () {
-            console.log('Animation terminée');
-            // Afficher la barre de navigation après l'animation
             gsap.to(navbar, {
                 opacity: 1,
                 y: 0,
-                duration: 0.7, /* Réduit la durée pour une transition plus rapide */
+                duration: 0.7,
                 onComplete: function() {
                     navbar.classList.add('visible');
+                        console.log('Navbar visible:', navbar.classList.contains('visible'));
+
                 }
             });
 
-            // Cacher la section intro après l'animation
             gsap.to(intro, {
                 duration: 0.5,
                 height: 0,
@@ -33,70 +30,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     tl
-        .fromTo(letters,
-            {
-                x: -100,
-                opacity: 0,
-            },
-            {
-                x: 0,
-                opacity: 1,
-                stagger: 0.33,
-                delay: 0.7
-            }
-        )
-        .to(title, {
-            y: 45,
-            delay: 0.7
-        })
-        .to(letters, {
-            margin: "0 5vw",
-            delay: 0.8,
-            duration: 0.5
-        })
-        .to(letters, {
-            margin: "0",
-            delay: 0.8,
-            duration: 0.5
-        })
-        .to(letters, {
-            x: -title.clientWidth,
-            delay: 1,
-            duration: 2,
-            rotate: -360
-        })
-        .to(intro, {
-            height: "2vh", // Réduit la hauteur de la section
-            delay: 1,
-            duration: 1
-        })
-        .to(intro, {
-            opacity: 0,
-            delay: 1.5,
-            duration: 1
-        })
-        .to(window, {
-            duration: 0.5,
-            scrollTo: "#nextSection"
-        })
-        .to("#nextSection", {
-            backgroundColor: "#000",
-            color: "#fff",
-            duration: 0.2
-        })
-        .to(title, {
-            y: 0
-        })
-        .to(letters, {
-            x: 0,
-            delay: 1,
-            duration: 2
-        });
+        .fromTo(letters, { x: -100, opacity: 0 }, { x: 0, opacity: 1, stagger: 0.33, delay: 0.7 })
+        .to(title, { y: 45, delay: 0.7 })
+        .to(letters, { margin: "0 5vw", delay: 0.8, duration: 0.5 })
+        .to(letters, { margin: "0", delay: 0.8, duration: 0.5 })
+        .to(letters, { x: -title.clientWidth, delay: 1, duration: 2, rotate: -360 })
+        .to(intro, { height: "2vh", delay: 1, duration: 1 })
+        .to(intro, { opacity: 0, delay: 1.5, duration: 1 })
+        .to(window, { duration: 0.5, scrollTo: "#nextSection" })
+        .to("#nextSection", { backgroundColor: "#000", color: "#fff", duration: 0.2 })
+        .to(title, { y: 0 })
+        .to(letters, { x: 0, delay: 1, duration: 2 });
 });
 
-document.querySelectorAll('.navbar a').forEach(link => {
-  link.addEventListener('mouseenter', onEnter);
-  link.addEventListener('mouseleave', onLeave);
+document.addEventListener("DOMContentLoaded", function() {
+    const menuIcon = document.getElementById("menu-icon");
+    const navbar = document.querySelector(".navbar");
+    const navLinks = document.querySelector(".nav-links");
+
+    menuIcon.addEventListener("click", function() {
+        navbar.classList.toggle("active"); // Ajoute ou supprime la classe 'active'
+    });
 });
 
 

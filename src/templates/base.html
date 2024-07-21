@@ -14,9 +14,12 @@
 <body>
     <header class="header">
     <nav class="navbar">
+        <div class="menu-icon" id="menu-icon">
+            &#9776;
+        </div>
         <div class="logo">
             <a href="{% url 'home' %}" aria-label="Retour à l'accueil">
-                <img src="{% static 'images/logo.jpg' %}" style=height:60px alt="Logo de la marque"/>
+                <img src="{% static 'images/logo.jpg' %}" style="height:60px;" alt="Logo de la marque"/>
             </a>
         </div>
         <ul class="nav-links">
@@ -25,13 +28,13 @@
             <li><a href="{% url 'login' %}" aria-label="Connexion" class="icon-container">
                 <i class="fas fa-user"></i>
             </a></li>
-            <!-- Ajout du panier -->
             <li>
                 <a href="{% url 'view_cart' %}" aria-label="Panier" class="cart-icon">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
             </li>
         </ul>
+
     </nav>
 </header>
 
