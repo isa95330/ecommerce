@@ -25,4 +25,4 @@ RUN pip install -r requirements.txt
 COPY . /app/
 
 # Définir la commande pour démarrer l'application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "ecommerce.wsgi:application"]
+CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8000", "ecommerce.wsgi:application"]

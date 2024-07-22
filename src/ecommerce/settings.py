@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import storages.backends.s3boto3
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
