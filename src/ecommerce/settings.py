@@ -1,6 +1,5 @@
 from pathlib import Path
 import os
-import storages.backends.s3boto3
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +24,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
-    'storages',
 
 ]
 
