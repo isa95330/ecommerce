@@ -42,10 +42,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t ecom-repo/ecom-name:latest -f src/Dockerfile src/
+        run: docker build -t isa95330/ecom-name:latest -f src/Dockerfile src/
 
       - name: Push Docker image
-        run: docker push ecom-repo/ecom-name:latest
+        run: docker push isa95330/ecom-name:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
         run: |
           ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
-          docker pull ecom-repo/ecom-name:latest
+          docker pull isa95330/ecom-name:latest
           docker-compose -f /home/ec2-user/src/docker-compose.yml down
           docker-compose -f /home/ec2-user/src/docker-compose.yml up -d
           EOF
