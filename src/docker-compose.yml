@@ -10,7 +10,9 @@ services:
     volumes:
       - .:/app   # Montez le répertoire courant dans /app du conteneur
     environment:
-      - DJANGO_SETTINGS_MODULE=ecommerce.settings  # Utilisation du fichier de configuration principal
-      - DEV_ENV=true  # Exemple de variable d'environnement pour l'environnement de développement
+      - DJANGO_SETTINGS_MODULE=ecommerce.settings
+      - DEV_ENV=true
     command: >
-      sh -c "python manage.py migrate && python manage.py test shop.tests_shop"
+      sh -c "python manage.py migrate && python manage.py test shop.tests_shop && gunicorn --bind 0.0.0.0:8000 ecommerce.wsgi:application"
+
+

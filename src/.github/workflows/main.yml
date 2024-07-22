@@ -1,4 +1,4 @@
-name: Build and Test
+name: Build, Test, and Deploy
 
 on:
   push:
@@ -19,9 +19,69 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build Docker image
         run: docker-compose -f src/docker-compose.yml build
 
       - name: Run tests
-
         run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
+
+  build-and-push:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t ecom-repo/ecom-name:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push ecom-repo/ecom-name:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Deploy to EC2
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -i $SSH_PRIVATE_KEY ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
+          docker pull ecom-repo/ecom-name:latest
+          docker-compose -f /home/ec2-user/src/docker-compose.yml down
+          docker-compose -f /home/ec2-user/src/docker-compose.yml up -d
+          EOF
+
+  deploy-to-s3:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install AWS CLI
+        run: sudo apt-get install -y awscli
+
+      - name: Sync static files to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync ./src/static s3://${{ secrets.AWS_S3_BUCKET_NAME }}/static --region ${{ secrets.AWS_REGION }}
+
+      - name: Sync media files to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync ./src/media s3://${{ secrets.AWS_S3_BUCKET_NAME }}/media --region ${{ secrets.AWS_REGION }}
