@@ -8,11 +8,9 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/app   # Montez le répertoire courant dans /app du conteneur
+      - .:/app
     environment:
       - DJANGO_SETTINGS_MODULE=ecommerce.settings
       - DEV_ENV=true
     command: >
       sh -c "python manage.py migrate && python manage.py test shop.tests_shop && gunicorn --bind 0.0.0.0:8000 ecommerce.wsgi:application"
-
-

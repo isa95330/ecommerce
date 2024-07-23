@@ -11,10 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:19.03.12
-        options: --privileged
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,10 +20,10 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker image
-        run: docker-compose -f src/docker-compose.yml build
+        run: docker-compose -f docker-compose.yml build
 
       - name: Run tests
-        run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
+        run: docker-compose -f docker-compose.yml run web python manage.py test shop.tests_shop
 
   build-and-push:
     runs-on: ubuntu-latest
@@ -42,7 +39,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t isa95330/ecom-name:latest -f src/Dockerfile src/
+        run: docker build -t isa95330/ecom-name:latest -f Dockerfile .
 
       - name: Push Docker image
         run: docker push isa95330/ecom-name:latest
