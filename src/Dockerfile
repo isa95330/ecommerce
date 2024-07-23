@@ -4,6 +4,7 @@ FROM python:3.11-slim-buster
 # Variables d'environnement
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE "ecommerce.settings"
 
 # Définir le répertoire de travail
 WORKDIR /app

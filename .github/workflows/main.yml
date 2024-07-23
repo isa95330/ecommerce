@@ -63,8 +63,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
           docker pull isa95330/ecom-name:latest
-          docker-compose -f /home/ec2-user/src/docker-compose.yml down
-          docker-compose -f /home/ec2-user/src/docker-compose.yml up -d
+          docker run -d -p 8080:8080 isa95330/ecom-name:latest
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
