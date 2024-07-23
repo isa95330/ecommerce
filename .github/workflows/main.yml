@@ -62,6 +62,8 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
+          aws s3 sync s3://ecom-bucket-unique123/static /path/to/static/ --delete
+            EOF
           docker pull isa95330/ecom-name:latest
           docker stop ecom-name || true
           docker rm ecom-name || true
@@ -69,3 +71,4 @@ jobs:
           EOF
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+
