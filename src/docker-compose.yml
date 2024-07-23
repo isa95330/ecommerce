@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8000"  # Expose le port 8000 du conteneur sur le port 8080 de l'hôte
+      - "8000:8000"  # Expose le port 8000 du conteneur sur le port 8080 de l'hôte
 
     volumes:
       - .:/app   # Montez le répertoire courant dans /app du conteneur
