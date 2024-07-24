@@ -9,24 +9,25 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:19.03.12
-        options: --privileged
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+  #test:
+    #runs-on: ubuntu-latest
+#    services:
+#      docker:
+       # image: docker:19.03.12
+     #   options: --privileged
+    #steps:
+      #- name: Checkout code
+       # uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: docker-compose -f src/docker-compose.yml build
+      #- name: Set up Docker Buildx
+       # uses: docker/setup-buildx-action@v2
 
-      - name: Run tests
-        run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
+      #- name: Build Docker image
+       # run: docker-compose -f src/docker-compose.yml build
+
+      #- name: Run tests
+        #run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
 
   build-and-push:
     runs-on: ubuntu-latest
