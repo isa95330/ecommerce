@@ -9,29 +9,28 @@ on:
       - main
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  #test:
-    #runs-on: ubuntu-latest
-#    services:
-#      docker:
-       # image: docker:19.03.12
-     #   options: --privileged
-    #steps:
-      #- name: Checkout code
-       # uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      #- name: Set up Docker Buildx
-       # uses: docker/setup-buildx-action@v2
+      - name: Build Docker image
+        run: docker-compose -f src/docker-compose.yml build
 
-      #- name: Build Docker image
-       # run: docker-compose -f src/docker-compose.yml build
-
-      #- name: Run tests
-        #run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
+      - name: Run tests
+        run: docker-compose -f src/docker-compose.yml run web python manage.py test shop.tests_shop
 
   build-and-push:
     runs-on: ubuntu-latest
-    #needs: test
+    needs: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -55,6 +54,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Add SSH key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
       - name: Set up environment variables
         run: |
           echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
@@ -63,16 +67,15 @@ jobs:
           echo "AWS_STORAGE_BUCKET_NAME=${{ secrets.AWS_STORAGE_BUCKET_NAME }}" >> $GITHUB_ENV
           echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" >> $GITHUB_ENV    
 
-
-      - name: Add SSH key
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
-            
+          
+          # Sync static and media files from S3 bucket to EC2 instance
+          aws s3 sync s3://ecom-bucket-unique123/static /home/ec2-user/ecommerce/src/static
+          aws s3 sync s3://ecom-bucket-unique123/media /home/ec2-user/ecommerce/src/media
+
+          # Deploy Docker container
           docker pull isa95330/ecom-name:latest
           docker stop ecom-name || true
           docker rm ecom-name || true
