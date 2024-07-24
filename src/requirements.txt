@@ -7,3 +7,4 @@ pymongo==4.8.0
 gunicorn==22.0.0
 awscli
 whiteNoise
+django-storages

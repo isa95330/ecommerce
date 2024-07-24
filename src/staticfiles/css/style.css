@@ -301,10 +301,10 @@ p {
 
 
 .slideshow4 li:nth-child(1) {
- background-image: url("../images/mariewu1.jpg");
+    background-image: url("https://ecom-bucket-unique123.s3.eu-west-3.amazonaws.com/static/images/Zoe.jpg");
 }
 .slideshow4 li:nth-child(2) {
- background-image: url("../images/mariewu4.jpg");
+    background-image: url("https://ecom-bucket-unique123.s3.eu-west-3.amazonaws.com/static/images/Zoe.jpg");
  animation-delay: 3s;
 }
 .slideshow4 li:nth-child(3) {
