@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 # Application definition
@@ -94,15 +94,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Répertoire où Django cherche les fichiers statiques pendant le développement
-]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Répertoire où collectstatic stocke les fichiers statiques pour la production
+STATIC_URL = 'static/'
 
-# Media files (uploads)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Répertoire pour les fichiers média uploadés
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/')
+]
+
+MEDIA_URL = '/images/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
 
 
 # Default primary key field type
