@@ -13,6 +13,6 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=ecommerce.settings
     command: >
-      sh -c "python manage.py migrate && python manage.py test shop.tests_shop && gunicorn --bind 0.0.0.0:8080 ecommerce.wsgi:application"
+      sh -c "python manage.py test shop.tests_shop && gunicorn --bind 0.0.0.0:8080 ecommerce.wsgi:application"
 
 
