@@ -24,6 +24,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le reste des fichiers du projet dans l'image
 COPY . /app/
-RUN python manage.py collectstatic --noinput
 # Définir la commande pour démarrer l'application
-CMD ["gunicorn", "--workers", "3", "--bind", "0.0.0.0:8080", "ecommerce.wsgi:application"]
+ENTRYPOINT ["/app/entrypoint.sh"]
