@@ -8,3 +8,4 @@ gunicorn==22.0.0
 awscli
 whiteNoise
 django-storages
+boto3
