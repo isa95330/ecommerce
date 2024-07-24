@@ -21,7 +21,6 @@ COPY requirements.txt /app/requirements.txt
 # Mettre à jour pip et installer les dépendances Python
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py collectstatic --noinput
 
 # Copier le reste des fichiers du projet dans l'image
 COPY . /app/
