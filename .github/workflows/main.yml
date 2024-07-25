@@ -36,12 +36,12 @@ jobs:
 
       - name: Add SSH key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
+          echo "${{ secrets.EC2_SSH_KEY }}" > ecom_key.pem
+          chmod 600 ecom_key.pem
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ecom_key.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
             # Mettre à jour le dépôt
             cd /home/ec2-user/src
             git pull origin main
@@ -68,6 +68,6 @@ jobs:
 
       - name: Synchronize code with EC2
         run: |
-            scp -i private_key.pem -r ./src ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/src
+            scp -i ecom_key.pem -r ./src ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/src
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
