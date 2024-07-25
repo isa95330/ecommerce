@@ -127,7 +127,7 @@ AWS_STORAGE_BUCKET_NAME = 'ecom-bucket-unique123'
 AWS_S3_REGION_NAME = 'eu-west-3'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-STATIC_URL = 'http://15.237.160.93:8080/static/'
+STATIC_URL = '/static/'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 STORAGES = {
         # Media file (image) management
