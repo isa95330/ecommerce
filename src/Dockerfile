@@ -24,5 +24,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le reste des fichiers du projet dans l'image
 COPY . /app/
+
+# Rendre le script entrypoint.sh exécutable
+RUN chmod +x /app/entrypoint.sh
+
 # Définir la commande pour démarrer l'application
 ENTRYPOINT ["/app/entrypoint.sh"]
