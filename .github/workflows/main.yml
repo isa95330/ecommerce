@@ -1,0 +1,73 @@
+name: Build, Test, and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t isa95330/ecom-name:latest -f src/Dockerfile src/
+
+      - name: Push Docker image
+        run: docker push isa95330/ecom-name:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Add SSH key
+        run: |
+          echo "${{ secrets.EC2_SSH_KEY }}" > ecomkey.pem
+          chmod 600 ecomkey.pem
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ecomkey.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
+            # Mettre à jour le dépôt
+            cd /home/ec2-user/src
+            git pull origin main
+            
+            # Stopper et supprimer les conteneurs existants
+            docker stop ecom-name || true
+            docker rm ecom-name || true
+            
+            # Synchroniser les fichiers statiques depuis S3
+            aws s3 sync s3://ecom-bucket-unique123/static /home/ec2-user/src/static
+            
+            # Tirer la nouvelle image Docker
+            docker pull isa95330/ecom-name:latest
+            
+            # Démarrer le conteneur Docker avec la nouvelle image
+            docker run -d --name ecom-name -p 8080:8080 isa95330/ecom-name:latest
+            
+            # Exécuter les migrations et collecter les fichiers statiques
+            cd /home/ec2-user/src
+            source venv/bin/activate
+            python manage.py migrate --noinput
+            python manage.py collectstatic --noinput
+          EOF
+
+      - name: Synchronize code with EC2
+        run: |
+            scp -i ecomkey.pem -r ./src ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/src
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
