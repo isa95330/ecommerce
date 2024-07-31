@@ -68,6 +68,6 @@ jobs:
 
       - name: Synchronize code with EC2
         run: |
-            scp -i ecomkey.pem -r ./src ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/src
+          rsync -avz -e "ssh -i 'C:\Users\aecdf\Downloads\ecomkey.pem'" "C:\Users\aecdf\Desktop\ecommerce" ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/ecommerce/
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
