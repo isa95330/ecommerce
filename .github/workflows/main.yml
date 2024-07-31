@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i ecomkey.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
+          ssh -i "C:\Users\aecdf\Downloads\ecomkey.pem" ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com
             # Mettre à jour le dépôt
             cd /home/ec2-user/src
             git pull origin main
@@ -68,6 +68,6 @@ jobs:
 
       - name: Synchronize code with EC2
         run: |
-          rsync -avz -e "ssh -i 'C:\Users\aecdf\Downloads\ecomkey.pem'" "C:\Users\aecdf\Desktop\ecommerce" ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/ecommerce/
+          rsync -avz -e "ssh -i C:\Users\aecdf\Downloads\ecomkey.pem" "C:\Users\aecdf\Desktop\ecommerce" ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/ecommerce/
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
