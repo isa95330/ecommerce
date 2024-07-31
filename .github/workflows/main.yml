@@ -41,7 +41,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i "C:\Users\aecdf\Downloads\ecomkey.pem" ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com
+          ssh -o StrictHostKeyChecking=no -i ecomkey.pem ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com << 'EOF'
             # Mettre à jour le dépôt
             cd /home/ec2-user/src
             git pull origin main
