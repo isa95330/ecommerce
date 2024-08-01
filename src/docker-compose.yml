@@ -6,13 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8080:8080"  # Expose le port 8000 du conteneur sur le port 8080 de l'hôte
+
     volumes:
       - .:/app   # Montez le répertoire courant dans /app du conteneur
     environment:
       - DJANGO_SETTINGS_MODULE=ecommerce.settings
-      - DEV_ENV=true
     command: >
-      sh -c "python manage.py migrate && python manage.py test shop.tests_shop && gunicorn --bind 0.0.0.0:8000 ecommerce.wsgi:application"
+      sh -c "python manage.py test shop.tests_shop && python manage.py runserver 0.0.0.0:8080"
 
 

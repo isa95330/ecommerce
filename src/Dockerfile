@@ -4,6 +4,7 @@ FROM python:3.11-slim-buster
 # Variables d'environnement
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV DJANGO_SETTINGS_MODULE "ecommerce.settings"
 
 # Définir le répertoire de travail
 WORKDIR /app
@@ -19,10 +20,13 @@ COPY requirements.txt /app/requirements.txt
 
 # Mettre à jour pip et installer les dépendances Python
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copier le reste des fichiers du projet dans l'image
 COPY . /app/
 
+# Rendre le script entrypoint.sh exécutable
+RUN chmod +x /app/entrypoint.sh
+
 # Définir la commande pour démarrer l'application
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "ecommerce.wsgi:application"]
+ENTRYPOINT ["/app/entrypoint.sh"]
