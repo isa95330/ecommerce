@@ -66,8 +66,5 @@ jobs:
             python manage.py collectstatic --noinput
           EOF
 
-      - name: Synchronize code with EC2
-        run: |
-            scp -i ecomkey.pem -r ./src ec2-user@ec2-15-237-160-93.eu-west-3.compute.amazonaws.com:/home/ec2-user/src
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
