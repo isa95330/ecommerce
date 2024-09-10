@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copier le fichier requirements.txt dans l'image
-COPY ../requirements.txt /app/requirements.txt
+COPY src/requirements.txt /app/requirements.txt
 
 # Mettre à jour pip et installer les dépendances Python
 RUN pip install --upgrade pip
