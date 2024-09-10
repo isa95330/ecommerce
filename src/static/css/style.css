@@ -1148,6 +1148,13 @@ p {
     .product-info p {
         font-size: 1rem; /* Taille de la police pour les descriptions */
     }
+    .box10 {
+    margin-bottom: 20px; /* Ajuste cette valeur pour la marge désirée */
+}
+
+.presse {
+    margin-top: 20px; /* Ajuste cette valeur pour la marge désirée */
+}
 }
 /* --------------------------- CART ------------------------------- */
 .main-content {
