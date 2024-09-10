@@ -8,3 +8,4 @@ awscli
 gunicorn
 django-storages
 boto3
+django-rest-framework
