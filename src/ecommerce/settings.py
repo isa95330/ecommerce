@@ -24,8 +24,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'storages',
+    'rest_framework',
+    'rest_framework_simplejwt',
 
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -83,7 +91,20 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'your_app.password_validation.SpecialCharacterValidator',
+    },
+    {
+        'NAME': 'your_app.password_validation.UppercaseCharacterValidator',
+    },
+    {
+        'NAME': 'your_app.password_validation.PasswordHistoryValidator',
+        'OPTIONS': {
+            'history_count': 5,  # Nombre d'anciens mots de passe à vérifier
+        },
+    },
 ]
+
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -127,8 +148,8 @@ AWS_STORAGE_BUCKET_NAME = 'ecom-bucket-unique123'
 AWS_S3_REGION_NAME = 'eu-west-3'
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-STATIC_URL = '/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+MEDIA_URL = '/media/'
 STORAGES = {
         # Media file (image) management
         "default": {
@@ -139,7 +160,7 @@ STORAGES = {
             "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
         },
     }
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/home/ec2-user/src/media'
 STATIC_ROOT = '/home/ec2-user/src/staticfiles'
 
 # Default primary key field type
@@ -147,4 +168,4 @@ STATIC_ROOT = '/home/ec2-user/src/staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = 'login'
